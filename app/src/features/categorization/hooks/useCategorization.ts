@@ -101,8 +101,8 @@ export function useCategorization() {
           })
           .eq('id', current.id)
         await learnRule(userId, current.original_label, categoryId, confidence)
-        await queryClient.invalidateQueries({ queryKey: [UNCATEGORIZED_QUERY_KEY, userId] })
-        await queryClient.invalidateQueries({ queryKey: ['categorization_rules', userId] })
+        await queryClient.refetchQueries({ queryKey: [UNCATEGORIZED_QUERY_KEY, userId] })
+        await queryClient.refetchQueries({ queryKey: ['categorization_rules', userId] })
         setLocalEdits((prev) => {
           const next = { ...prev }
           delete next[current.id]
