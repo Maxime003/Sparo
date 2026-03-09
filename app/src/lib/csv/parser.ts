@@ -71,17 +71,18 @@ function extractMetadata(headerLines: string[][]): CSVMetadata {
     ? accountNameMatch[1].trim()
     : 'Compte de Dépôt'
 
-  // Solde : essayer plusieurs motifs courants, extraire uniquement la valeur numérique
+  // Solde : extraire la date et la valeur numérique
   let balance = 0
-  const balancePatterns = [
-    /Solde au \d{2}\/\d{2}\/\d{4}\s*:?\s*([\d\s,]+)\s*(?:€|EUR)?/,
-    /Solde[^0-9]*([\d\s,]+)\s*(?:€|EUR)?/,
-  ]
-  for (const pattern of balancePatterns) {
-    const m = text.match(pattern)
-    if (m && m[1]) {
-      balance = parseFrenchNumber(m[1])
-      break
+  let balanceDate = downloadDate
+  const balanceDatePattern = /Solde au (\d{2}\/\d{2}\/\d{4})\s*:?\s*([\d\s,]+)\s*(?:€|EUR)?/
+  const balanceDateMatch = text.match(balanceDatePattern)
+  if (balanceDateMatch) {
+    balanceDate = parseFrenchDate(balanceDateMatch[1])
+    balance = parseFrenchNumber(balanceDateMatch[2])
+  } else {
+    const fallbackMatch = text.match(/Solde[^0-9]*([\d\s,]+)\s*(?:€|EUR)?/)
+    if (fallbackMatch && fallbackMatch[1]) {
+      balance = parseFrenchNumber(fallbackMatch[1])
     }
   }
 
@@ -108,6 +109,7 @@ function extractMetadata(headerLines: string[][]): CSVMetadata {
     accountName,
     accountNumber,
     balance,
+    balanceDate,
     periodStart,
     periodEnd,
     accountHolder,

@@ -92,7 +92,7 @@ export function useCSVImport() {
           .upsert(
             {
               user_id: user.id,
-              snapshot_date: metadata.downloadDate,
+              snapshot_date: metadata.balanceDate,
               balance: metadata.balance,
               account_name: metadata.accountName,
             },
