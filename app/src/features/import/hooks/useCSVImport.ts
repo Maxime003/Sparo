@@ -4,6 +4,7 @@ import { useAuthStore } from '@/features/auth/stores/authStore'
 import { detectDuplicates } from '@/lib/csv/normalizer'
 import { extractOperationType } from '@/lib/csv/parser'
 import type { ParsedCSVResult } from '@/types/csv'
+import type { ReconciliationMatch } from '../services/reconciliation'
 
 export function useCSVImport() {
   const user = useAuthStore((s) => s.user)
@@ -11,7 +12,7 @@ export function useCSVImport() {
   const [error, setError] = useState<string | null>(null)
 
   const importToDb = useCallback(
-    async (result: ParsedCSVResult, file: File) => {
+    async (result: ParsedCSVResult, file: File, confirmedMatches?: ReconciliationMatch[]) => {
       if (!user) {
         setError('Non connecté')
         return
@@ -100,6 +101,33 @@ export function useCSVImport() {
             }
           )
         if (snapshotError) throw snapshotError
+
+        // 6) Reconcile confirmed pending expenses
+        if (confirmedMatches && confirmedMatches.length > 0) {
+          // Fetch inserted transactions for this batch to find IDs
+          const { data: insertedRows } = await supabase
+            .from('transactions')
+            .select('id, transaction_date, amount, original_label')
+            .eq('import_batch_id', batchId)
+
+          const inserted = insertedRows ?? []
+
+          for (const match of confirmedMatches) {
+            const targetAmount = match.transaction.debit ? -match.transaction.debit : match.transaction.credit ?? 0
+            const found = inserted.find(
+              (row) =>
+                row.transaction_date === match.transaction.date &&
+                Math.abs(row.amount - targetAmount) < 0.01 &&
+                row.original_label.startsWith(match.transaction.label.slice(0, 20))
+            )
+            if (found) {
+              await supabase
+                .from('pending_expenses')
+                .update({ reconciled_with: found.id, reconciled_at: new Date().toISOString() })
+                .eq('id', match.pendingExpense.id)
+            }
+          }
+        }
       } catch (err) {
         const message =
           err instanceof Error ? err.message : 'Erreur lors de l\'import'
