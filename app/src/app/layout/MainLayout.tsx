@@ -11,6 +11,7 @@ const NAV_ITEMS = [
   { to: '/app/import', label: 'Importer' },
   { to: '/app/categorize', label: 'Catégoriser' },
   { to: '/app/transactions', label: 'Transactions' },
+  { to: '/app/pending', label: 'En attente' },
 ]
 
 export function MainLayout() {
