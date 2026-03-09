@@ -115,14 +115,21 @@ async function fetchLatestBankBalance(userId: string): Promise<BankBalanceData> 
     .maybeSingle()
   if (snapErr) throw snapErr
 
-  const { data: pendingRows, error: pendErr } = await supabase
-    .from('pending_expenses')
-    .select('amount')
-    .eq('user_id', userId)
-    .is('reconciled_with', null)
-  if (pendErr) throw pendErr
+  // Graceful: if pending_expenses table doesn't exist yet, default to 0
+  let pendingTotal = 0
+  try {
+    const { data: pendingRows, error: pendErr } = await supabase
+      .from('pending_expenses')
+      .select('amount')
+      .eq('user_id', userId)
+      .is('reconciled_with', null)
+    if (!pendErr) {
+      pendingTotal = (pendingRows ?? []).reduce((sum, r) => sum + r.amount, 0)
+    }
+  } catch {
+    // table may not exist yet — ignore
+  }
 
-  const pendingTotal = (pendingRows ?? []).reduce((sum, r) => sum + r.amount, 0)
   const bankBalance = snapshot?.balance ?? 0
   const bankBalanceDate = snapshot?.snapshot_date ?? null
 
@@ -170,6 +177,6 @@ export function useDashboard(month: Date) {
     balance: balanceData.data ?? { bankBalance: 0, bankBalanceDate: null, pendingTotal: 0, realBalance: 0 },
     isLoading: totals.isLoading || topCategories.isLoading || stats.isLoading,
     isBalanceLoading: balanceData.isLoading,
-    error: totals.error || topCategories.error || stats.error || balanceData.error,
+    error: totals.error || topCategories.error || stats.error,
   }
 }

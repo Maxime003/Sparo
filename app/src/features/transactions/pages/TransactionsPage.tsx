@@ -44,7 +44,7 @@ export function TransactionsPage() {
 
       {error ? (
         <p className="text-destructive">
-          Erreur : {error instanceof Error ? error.message : String(error)}
+          Erreur : {error instanceof Error ? error.message : 'Une erreur est survenue'}
         </p>
       ) : (
         <TransactionList

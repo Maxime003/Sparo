@@ -51,7 +51,7 @@ export function CategorizationFlow() {
     return (
       <Card>
         <CardContent className="p-6">
-          <p className="text-destructive">Erreur : {String(error)}</p>
+          <p className="text-destructive">Erreur : {error instanceof Error ? error.message : 'Une erreur est survenue'}</p>
         </CardContent>
       </Card>
     )
