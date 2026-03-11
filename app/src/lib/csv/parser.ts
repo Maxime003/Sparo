@@ -104,7 +104,7 @@ function extractMetadata(headerLines: string[][]): CSVMetadata {
     }
   }
 
-  return {
+  const metadata = {
     downloadDate,
     accountName,
     accountNumber,
@@ -114,6 +114,7 @@ function extractMetadata(headerLines: string[][]): CSVMetadata {
     periodEnd,
     accountHolder,
   }
+  return metadata
 }
 
 /** Retire BOM, \\r et espaces */
