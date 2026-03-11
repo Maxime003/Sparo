@@ -17,9 +17,9 @@ interface TopCategoriesProps {
 export function TopCategories({ categories, isLoading }: TopCategoriesProps) {
   if (isLoading) {
     return (
-      <Card>
+      <Card className="shadow-sm">
         <CardHeader>
-          <CardTitle>Top dépenses</CardTitle>
+          <CardTitle className="text-base font-semibold">Top dépenses</CardTitle>
         </CardHeader>
         <CardContent className="space-y-3">
           {[0, 1, 2].map((i) => (
@@ -30,12 +30,12 @@ export function TopCategories({ categories, isLoading }: TopCategoriesProps) {
     )
   }
 
-  const maxAbsolute = categories.length > 0 ? Math.abs(categories[0].total) : 1
+  const totalExpenses = categories.reduce((sum, c) => sum + Math.abs(c.total), 0) || 1
 
   return (
-    <Card>
+    <Card className="shadow-sm">
       <CardHeader>
-        <CardTitle>Top dépenses</CardTitle>
+        <CardTitle className="text-base font-semibold">Top dépenses</CardTitle>
       </CardHeader>
       <CardContent>
         {categories.length === 0 ? (
@@ -43,29 +43,34 @@ export function TopCategories({ categories, isLoading }: TopCategoriesProps) {
             Aucune dépense catégorisée ce mois.
           </p>
         ) : (
-          <div className="space-y-3">
+          <div className="space-y-4">
             {categories.map((cat) => {
-              const pct = (Math.abs(cat.total) / maxAbsolute) * 100
+              const percentage = (Math.abs(cat.total) / totalExpenses) * 100
               return (
-                <div key={cat.category_id} className="space-y-1">
-                  <div className="flex items-center justify-between text-sm">
-                    <span className="flex items-center gap-2">
+                <div key={cat.category_id}>
+                  <div className="flex items-center justify-between mb-1">
+                    <span className="flex items-center gap-2 text-sm font-medium truncate">
                       <span
                         className="size-2.5 shrink-0 rounded-full"
                         style={{ backgroundColor: cat.color }}
                         aria-hidden
                       />
-                      <span className="font-medium">{cat.name}</span>
+                      {cat.name}
                     </span>
-                    <span className="tabular-nums text-muted-foreground">
-                      {formatAmount(Math.abs(cat.total))}
-                    </span>
+                    <div className="flex items-center gap-2 shrink-0">
+                      <span className="text-xs text-muted-foreground">
+                        {percentage.toFixed(0)}%
+                      </span>
+                      <span className="text-sm font-semibold tabular-nums">
+                        {formatAmount(Math.abs(cat.total))}
+                      </span>
+                    </div>
                   </div>
-                  <div className="h-2 w-full rounded-full bg-muted">
+                  <div className="h-2 w-full rounded-full bg-muted overflow-hidden">
                     <div
-                      className="h-2 rounded-full transition-all"
+                      className="h-full rounded-full transition-all duration-500"
                       style={{
-                        width: `${pct}%`,
+                        width: `${percentage}%`,
                         backgroundColor: cat.color,
                       }}
                     />

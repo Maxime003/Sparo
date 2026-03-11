@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { addMonths, subMonths } from 'date-fns'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { ChevronLeft, ChevronRight, AlertCircle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useDashboard } from '../hooks/useDashboard'
 import { BalanceOverview, DashboardOverview } from '../components/DashboardOverview'
@@ -27,28 +27,7 @@ export function DashboardPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-semibold">Tableau de bord</h1>
-        <div className="flex items-center gap-2">
-          <Button
-            variant="outline"
-            size="icon"
-            onClick={() => setMonth((m) => subMonths(m, 1))}
-          >
-            <ChevronLeft className="h-4 w-4" />
-          </Button>
-          <span className="min-w-[160px] text-center font-medium capitalize">
-            {formatMonthYear(month)}
-          </span>
-          <Button
-            variant="outline"
-            size="icon"
-            onClick={() => setMonth((m) => addMonths(m, 1))}
-          >
-            <ChevronRight className="h-4 w-4" />
-          </Button>
-        </div>
-      </div>
+      <h1 className="text-2xl font-semibold tracking-tight">Tableau de bord</h1>
 
       <BalanceOverview
         bankBalance={balance.bankBalance}
@@ -59,12 +38,12 @@ export function DashboardPage() {
       />
 
       {lastCategorizedDate ? (
-        <p className="text-sm text-muted-foreground">
+        <p className="text-xs text-muted-foreground text-center">
           Transactions catégorisées jusqu'au {formatTransactionDate(lastCategorizedDate)}
         </p>
       ) : (
         !isBalanceLoading && (
-          <p className="text-sm text-muted-foreground">
+          <p className="text-xs text-muted-foreground text-center">
             Aucune transaction catégorisée
           </p>
         )
@@ -81,7 +60,32 @@ export function DashboardPage() {
         </div>
       ) : (
         <>
-          <h2 className="text-lg font-semibold">Ce mois-ci</h2>
+          {/* Section separator */}
+          <div className="flex items-center justify-between">
+            <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">
+              Analyse mensuelle
+            </h2>
+            <div className="flex items-center gap-2">
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={() => setMonth((m) => subMonths(m, 1))}
+              >
+                <ChevronLeft className="h-4 w-4" />
+              </Button>
+              <span className="min-w-[140px] text-center text-sm font-medium capitalize">
+                {formatMonthYear(month)}
+              </span>
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={() => setMonth((m) => addMonths(m, 1))}
+              >
+                <ChevronRight className="h-4 w-4" />
+              </Button>
+            </div>
+          </div>
+
           <DashboardOverview
             income={totals.income}
             expenses={totals.expenses}
@@ -95,20 +99,28 @@ export function DashboardPage() {
           />
 
           {!isLoading && (
-            <p className="text-sm text-muted-foreground">
-              {stats.totalTransactions} transaction{stats.totalTransactions > 1 ? 's' : ''}
-              {stats.uncategorized > 0 && (
-                <>
-                  {' · '}{stats.uncategorized} non catégorisée{stats.uncategorized > 1 ? 's' : ''}{' '}
-                  <Link
-                    to="/app/categorize"
-                    className="text-primary underline hover:no-underline"
-                  >
-                    Catégoriser →
-                  </Link>
-                </>
-              )}
-            </p>
+            stats.uncategorized > 0 ? (
+              <div className="flex items-center justify-between rounded-lg bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800 px-4 py-3">
+                <div className="flex items-center gap-2">
+                  <AlertCircle className="h-4 w-4 text-amber-600 dark:text-amber-400 shrink-0" />
+                  <span className="text-sm text-amber-700 dark:text-amber-300">
+                    {stats.uncategorized} transaction{stats.uncategorized > 1 ? 's' : ''} non catégorisée{stats.uncategorized > 1 ? 's' : ''}
+                  </span>
+                </div>
+                <Button
+                  asChild
+                  variant="outline"
+                  size="sm"
+                  className="border-amber-300 text-amber-700 hover:bg-amber-100 dark:border-amber-700 dark:text-amber-300 shrink-0"
+                >
+                  <Link to="/app/categorize">Catégoriser</Link>
+                </Button>
+              </div>
+            ) : (
+              <p className="text-xs text-muted-foreground text-center">
+                {stats.totalTransactions} transaction{stats.totalTransactions > 1 ? 's' : ''} · tout est catégorisé
+              </p>
+            )
           )}
         </>
       )}
