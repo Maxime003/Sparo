@@ -52,9 +52,12 @@ export function PendingExpenseForm() {
   }
 
   return (
-    <Card>
+    <Card className="shadow-sm">
       <CardHeader>
         <h2 className="text-lg font-semibold">Ajouter une dépense</h2>
+        <p className="text-sm text-muted-foreground">
+          Saisissez les dépenses effectuées mais pas encore prélevées
+        </p>
       </CardHeader>
       <CardContent>
         <Form {...form}>
