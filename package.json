@@ -6,5 +6,9 @@
     "build": "npm run build --prefix app",
     "preview": "npm run preview --prefix app",
     "lint": "npm run lint --prefix app"
+  },
+  "dependencies": {
+    "@vercel/analytics": "^2.0.1",
+    "@vercel/speed-insights": "^2.0.0"
   }
 }
