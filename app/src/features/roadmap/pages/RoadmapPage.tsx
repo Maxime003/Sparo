@@ -44,7 +44,7 @@ export function RoadmapPage() {
         <div>
           <h1 className="text-2xl font-bold">Roadmap</h1>
           <p className="text-sm text-muted-foreground mt-1">
-            Suivez l'avancement des fonctionnalités de Finzeo
+            Suivez l'avancement des fonctionnalités de Sparo
           </p>
         </div>
         <Link

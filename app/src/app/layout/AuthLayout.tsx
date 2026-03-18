@@ -14,9 +14,9 @@ export function AuthLayout() {
       <div className="w-full max-w-md">
         <Card>
           <CardHeader className="text-center">
-            <h1 className="text-2xl font-semibold">Finzeo</h1>
+            <img src="/sparo-logo.svg" alt="Sparo" className="h-8 mx-auto" />
             <p className="text-sm text-muted-foreground">
-              Gestion de finances personnelles
+              Vois où va ton argent
             </p>
           </CardHeader>
           <CardContent>

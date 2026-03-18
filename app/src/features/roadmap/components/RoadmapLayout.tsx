@@ -1,7 +1,6 @@
 import { Link, Outlet, useLocation } from 'react-router-dom'
 import { useAuthStore } from '@/features/auth/stores/authStore'
 import { cn } from '@/lib/utils'
-import { Wallet } from 'lucide-react'
 
 const NAV_LINKS = [
   { to: '/roadmap', label: 'Roadmap', exact: true },
@@ -24,10 +23,8 @@ export function RoadmapLayout() {
             to="/"
             className="flex items-center gap-2 font-semibold text-foreground"
           >
-            <div className="flex h-7 w-7 items-center justify-center rounded-md bg-indigo-600">
-              <Wallet className="h-4 w-4 text-white" />
-            </div>
-            <span className="text-base font-semibold tracking-tight">Finzeo</span>
+            <img src="/sparo-logo.svg" alt="Sparo" className="hidden sm:block h-8" />
+            <img src="/sparo-icon.svg" alt="Sparo" className="sm:hidden h-7 w-7" />
           </Link>
 
           <nav className="flex items-center gap-1">

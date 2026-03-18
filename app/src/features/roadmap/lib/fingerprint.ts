@@ -1,4 +1,4 @@
-const KEY = 'finzeo_visitor_fp'
+const KEY = 'sparo_visitor_fp'
 
 export function getFingerprint(): string {
   let fp = localStorage.getItem(KEY)

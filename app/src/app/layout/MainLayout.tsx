@@ -20,7 +20,6 @@ import {
   Clock,
   Menu,
   LogOut,
-  Wallet,
   Map,
 } from 'lucide-react'
 import { useState } from 'react'
@@ -102,12 +101,8 @@ export function MainLayout() {
             to="/app"
             className="flex items-center gap-2 font-semibold text-foreground"
           >
-            <div className="flex h-7 w-7 items-center justify-center rounded-md bg-primary">
-              <Wallet className="h-4 w-4 text-primary-foreground" />
-            </div>
-            <span className="text-base font-semibold tracking-tight">
-              Finzeo
-            </span>
+            <img src="/sparo-logo.svg" alt="Sparo" className="hidden sm:block h-8" />
+            <img src="/sparo-icon.svg" alt="Sparo" className="sm:hidden h-7 w-7" />
           </Link>
 
           {/* Desktop nav */}
@@ -170,10 +165,8 @@ export function MainLayout() {
                 <div className="flex flex-col h-full">
                   {/* Sheet header */}
                   <div className="flex items-center gap-2 px-4 py-4 border-b border-border">
-                    <div className="flex h-7 w-7 items-center justify-center rounded-md bg-primary">
-                      <Wallet className="h-4 w-4 text-primary-foreground" />
-                    </div>
-                    <span className="font-semibold">Finzeo</span>
+                    <img src="/sparo-icon.svg" alt="Sparo" className="h-7 w-7" />
+                    <span className="font-display font-semibold">Sparo</span>
                   </div>
 
                   {/* Sheet nav */}
