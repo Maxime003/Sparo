@@ -36,7 +36,7 @@ export function ReconciliationReview({ matches, onConfirm, isImporting }: Reconc
       <CardHeader>
         <h2 className="text-lg font-semibold">Rapprochement des dépenses en attente</h2>
         <p className="text-sm text-muted-foreground">
-          Ces dépenses en attente semblent correspondre à des transactions de votre relevé
+          Ces dépenses en attente semblent correspondre à des transactions de ton relevé
         </p>
       </CardHeader>
       <CardContent className="space-y-3">

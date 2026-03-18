@@ -56,7 +56,7 @@ export function PendingExpenseForm() {
       <CardHeader>
         <h2 className="text-lg font-semibold">Ajouter une dépense</h2>
         <p className="text-sm text-muted-foreground">
-          Saisissez les dépenses effectuées mais pas encore prélevées
+          Ajoute les dépenses pas encore prélevées par ta banque
         </p>
       </CardHeader>
       <CardContent>

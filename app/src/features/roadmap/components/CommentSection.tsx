@@ -135,7 +135,7 @@ function CommentForm({
   return (
     <form onSubmit={onSubmit} className="space-y-2">
       <Input
-        placeholder="Votre nom"
+        placeholder="Ton nom"
         value={authorName}
         onChange={(e) => setAuthorName(e.target.value)}
         className="h-8 text-sm"

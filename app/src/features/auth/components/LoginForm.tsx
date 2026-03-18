@@ -39,7 +39,7 @@ export function LoginForm() {
       toast({ title: 'Connexion réussie' })
       navigate('/app', { replace: true })
     } catch (err) {
-      const message = err instanceof Error ? err.message : 'Erreur de connexion'
+      const message = err instanceof Error ? err.message : 'Email ou mot de passe incorrect.'
       toast({ title: 'Erreur', description: message, variant: 'destructive' })
     }
   }
@@ -64,7 +64,7 @@ export function LoginForm() {
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input type="email" placeholder="vous@exemple.com" {...field} />
+                  <Input type="email" placeholder="ton@email.com" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

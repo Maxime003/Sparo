@@ -24,7 +24,7 @@ export function CSVUpload({ onParsed }: CSVUploadProps) {
       if (ext !== ACCEPTED_EXT) {
         toast({
           title: 'Fichier invalide',
-          description: 'Veuillez sélectionner un fichier CSV.',
+          description: 'Sélectionne un fichier CSV.',
           variant: 'destructive',
         })
         return
@@ -51,7 +51,7 @@ export function CSVUpload({ onParsed }: CSVUploadProps) {
         onParsed(result, file)
       } catch (err) {
         const message =
-          err instanceof Error ? err.message : 'Erreur lors de la lecture du CSV'
+          err instanceof Error ? err.message : 'Ce fichier n\'a pas pu être lu. Vérifie que c\'est bien un CSV Crédit Agricole.'
         toast({
           title: 'Erreur de lecture',
           description: message,
@@ -108,7 +108,7 @@ export function CSVUpload({ onParsed }: CSVUploadProps) {
       >
         <Upload className="h-10 w-10 text-muted-foreground mb-4" />
         <p className="text-sm font-medium text-foreground mb-1">
-          Glissez un fichier CSV ici ou cliquez pour choisir
+          Glisse ton relevé CSV ici ou clique pour choisir
         </p>
         <p className="text-xs text-muted-foreground">
           Fichier Crédit Agricole uniquement, max 5 Mo

@@ -73,9 +73,9 @@ export function CategorizationFlow() {
             <CheckCircle2 className="h-6 w-6 text-primary" />
           </div>
           <div className="space-y-1">
-            <p className="font-medium">Toutes les transactions sont catégorisées</p>
+            <p className="font-medium">Tout est catégorisé. Bien joué.</p>
             <p className="text-sm text-muted-foreground">
-              Consultez votre tableau de bord pour un résumé.
+              Consulte ton tableau de bord pour un résumé.
             </p>
           </div>
           <Button asChild variant="outline" size="sm">
@@ -145,11 +145,11 @@ export function CategorizationFlow() {
               value={localCategoryId}
               onChange={setCategoryId}
               suggestedCategoryId={suggestionsLoading ? undefined : suggestedCategoryId}
-              placeholder="Sélectionnez une catégorie"
+              placeholder="Choisis une catégorie"
             />
             {!localCategoryId && (
               <p className="text-xs text-muted-foreground">
-                Sélectionnez une catégorie pour pouvoir valider.
+                Choisis une catégorie pour pouvoir valider.
               </p>
             )}
           </div>

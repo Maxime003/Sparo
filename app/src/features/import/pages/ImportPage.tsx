@@ -14,8 +14,8 @@ import { cn } from '@/lib/utils'
 type Step = 'upload' | 'summary' | 'reconciliation'
 
 const STEPS: { key: Step; label: string }[] = [
-  { key: 'upload', label: 'Fichier' },
-  { key: 'summary', label: 'Résumé' },
+  { key: 'upload', label: 'Ton fichier' },
+  { key: 'summary', label: 'Aperçu' },
   { key: 'reconciliation', label: 'Réconciliation' },
 ]
 
@@ -39,7 +39,7 @@ export function ImportPage() {
     if (!result || !file) return
     importToDb(result, file, confirmedMatches)
       .then(() => {
-        toast({ title: 'Import réussi', description: 'Les transactions ont été importées.' })
+        toast({ title: 'Import terminé', description: `${result.transactions.length} transactions prêtes à catégoriser.` })
         navigate('/app/categorize', { replace: true })
       })
       .catch(() => {
@@ -78,7 +78,7 @@ export function ImportPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-semibold">Importer un CSV</h1>
+        <h1 className="text-2xl font-semibold">Importer ton relevé</h1>
         {step !== 'upload' && (
           <Button variant="outline" size="sm" onClick={handleReset}>
             Changer de fichier
@@ -86,7 +86,7 @@ export function ImportPage() {
         )}
       </div>
       <p className="text-muted-foreground">
-        Importez un export de compte Crédit Agricole (format CSV).
+        Importe un export de compte Crédit Agricole (format CSV).
       </p>
 
       {/* Step indicator */}

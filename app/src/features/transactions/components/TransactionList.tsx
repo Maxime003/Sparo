@@ -54,9 +54,9 @@ export function TransactionList({
             <List className="h-6 w-6 text-muted-foreground" />
           </div>
           <div className="space-y-1">
-            <p className="font-medium">Aucune transaction</p>
+            <p className="font-medium">Aucune transaction pour le moment.</p>
             <p className="text-sm text-muted-foreground">
-              Aucune transaction pour cette période.
+              Importe un relevé pour voir tes transactions ici.
             </p>
           </div>
           <Button asChild variant="outline" size="sm">

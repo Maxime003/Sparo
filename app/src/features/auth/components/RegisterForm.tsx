@@ -38,7 +38,7 @@ export function RegisterForm() {
       await signUp(values.email, values.password, values.fullName)
       toast({
         title: 'Compte créé',
-        description: 'Pensez à valider votre adresse email via le lien envoyé dans votre boîte mail (vérifiez aussi les spams).',
+        description: 'Pense à valider ton adresse email via le lien envoyé dans ta boîte mail (vérifie aussi les spams).',
       })
       navigate('/app', { replace: true })
     } catch (err) {
@@ -50,7 +50,7 @@ export function RegisterForm() {
   return (
     <div className="space-y-4">
       <p className="text-sm text-muted-foreground bg-muted/50 rounded-md p-3 border border-border">
-        Après l'inscription, un email de validation vous sera envoyé. Pensez à cliquer sur le lien reçu pour valider votre adresse email (vérifiez aussi les courriers indésirables).
+        Après l'inscription, un email de validation te sera envoyé. Pense à cliquer sur le lien reçu pour valider ton adresse email (vérifie aussi les courriers indésirables).
       </p>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -74,7 +74,7 @@ export function RegisterForm() {
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input type="email" placeholder="vous@exemple.com" {...field} />
+                  <Input type="email" placeholder="ton@email.com" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -94,7 +94,7 @@ export function RegisterForm() {
             )}
           />
           <Button type="submit" className="w-full" disabled={form.formState.isSubmitting}>
-            {form.formState.isSubmitting ? 'Inscription...' : 'S\'inscrire'}
+            {form.formState.isSubmitting ? 'Inscription...' : 'Commencer'}
           </Button>
         </form>
       </Form>

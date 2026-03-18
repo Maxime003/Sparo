@@ -34,7 +34,7 @@ export function TransactionsPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-semibold tracking-tight">Transactions</h1>
+        <h1 className="text-2xl font-semibold tracking-tight">Tes transactions</h1>
         {!isLoading && totalCount > 0 && (
           <p className="mt-1 text-sm text-muted-foreground">
             {totalCount} transaction{totalCount > 1 ? 's' : ''} · Total page :{' '}

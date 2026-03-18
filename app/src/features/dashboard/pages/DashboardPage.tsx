@@ -78,10 +78,10 @@ export function DashboardPage() {
       {hasNoData ? (
         <div className="py-16 text-center">
           <p className="text-lg text-muted-foreground mb-4">
-            Aucune transaction pour le moment.
+            Aucune donnée ce mois-ci. Importe un relevé pour voir ta vision.
           </p>
           <Button asChild>
-            <Link to="/app/import">Importer votre premier relevé bancaire</Link>
+            <Link to="/app/import">Importer ton premier relevé</Link>
           </Button>
         </div>
       ) : (
@@ -104,7 +104,7 @@ export function DashboardPage() {
                 <div className="flex items-center gap-2">
                   <AlertCircle className="h-4 w-4 text-amber-600 dark:text-amber-400 shrink-0" />
                   <span className="text-sm text-amber-700 dark:text-amber-300">
-                    {stats.uncategorized} transaction{stats.uncategorized > 1 ? 's' : ''} non catégorisée{stats.uncategorized > 1 ? 's' : ''}
+                    {stats.uncategorized} transaction{stats.uncategorized > 1 ? 's' : ''} non catégorisée{stats.uncategorized > 1 ? 's' : ''}. Ça prend 30 secondes.
                   </span>
                 </div>
                 <Button

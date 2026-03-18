@@ -29,9 +29,9 @@ export function ImportSummary({
   return (
     <Card>
       <CardHeader>
-        <h2 className="text-lg font-semibold">Résumé avant import</h2>
+        <h2 className="text-lg font-semibold">Prêt à importer ?</h2>
         <p className="text-sm text-muted-foreground">
-          Vérifiez les informations puis lancez l'import.
+          Vérifie les informations puis lance l'import.
         </p>
       </CardHeader>
       <CardContent className="space-y-4">

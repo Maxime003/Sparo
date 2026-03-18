@@ -26,7 +26,7 @@ export class ErrorBoundary extends Component<Props, State> {
         <div className="flex min-h-[50vh] flex-col items-center justify-center gap-4 text-center">
           <h2 className="text-xl font-semibold">Une erreur est survenue</h2>
           <p className="text-muted-foreground">
-            Quelque chose s'est mal passé. Veuillez recharger la page.
+            Quelque chose s'est mal passé. Recharge la page.
           </p>
           <Button onClick={() => window.location.reload()}>
             Recharger la page

@@ -47,7 +47,7 @@ export function SubmitIdeaForm({ open, onOpenChange }: SubmitIdeaFormProps) {
         <DialogHeader>
           <DialogTitle>Proposer une idée</DialogTitle>
           <DialogDescription>
-            Décrivez votre idée. Elle sera soumise à validation avant d'être visible.
+            Décris ton idée. Elle sera soumise à validation avant d'être visible.
           </DialogDescription>
         </DialogHeader>
 
@@ -56,7 +56,7 @@ export function SubmitIdeaForm({ open, onOpenChange }: SubmitIdeaFormProps) {
             <Label htmlFor="idea-title">Titre *</Label>
             <Input
               id="idea-title"
-              placeholder="Votre idée en quelques mots"
+              placeholder="Ton idée en quelques mots"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               required
@@ -67,7 +67,7 @@ export function SubmitIdeaForm({ open, onOpenChange }: SubmitIdeaFormProps) {
             <Label htmlFor="idea-desc">Description (optionnel)</Label>
             <textarea
               id="idea-desc"
-              placeholder="Détaillez votre idée..."
+              placeholder="Détaille ton idée..."
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               rows={3}

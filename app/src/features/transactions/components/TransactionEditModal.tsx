@@ -81,7 +81,7 @@ export function TransactionEditModal({ transaction, onClose }: TransactionEditMo
               categories={categories}
               value={categoryId}
               onChange={setCategoryId}
-              placeholder="Sélectionnez une catégorie"
+              placeholder="Choisis une catégorie"
             />
           </div>
         </div>

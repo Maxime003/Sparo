@@ -58,8 +58,8 @@ export function PendingExpenseList() {
           <div className="space-y-1">
             <p className="font-medium">Aucune dépense en attente</p>
             <p className="text-sm text-muted-foreground">
-              Ajoutez les dépenses qui n'apparaissent pas encore
-              sur votre relevé bancaire.
+              Ajoute les dépenses qui n'apparaissent pas encore
+              sur ton relevé bancaire.
             </p>
           </div>
         </CardContent>

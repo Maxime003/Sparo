@@ -90,7 +90,7 @@ export function TransactionFilters({
         <div className="relative">
           <Search className="absolute left-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <Input
-            placeholder="Rechercher…"
+            placeholder="Rechercher une transaction…"
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
             className="pl-9 w-full sm:w-[200px]"

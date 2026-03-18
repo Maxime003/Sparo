@@ -7,7 +7,7 @@ export function PendingExpensesPage() {
       <div>
         <h1 className="text-2xl font-semibold tracking-tight">Dépenses en attente</h1>
         <p className="text-muted-foreground">
-          Dépenses effectuées mais pas encore prélevées par la banque
+          Ces dépenses ne sont pas encore sur ton relevé bancaire.
         </p>
       </div>
       <PendingExpenseForm />
