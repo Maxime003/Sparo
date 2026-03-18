@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { startOfMonth, format } from 'date-fns'
+import { startOfMonth, endOfMonth, format } from 'date-fns'
 import { supabase } from '@/lib/supabase'
 import { useAuthStore } from '@/features/auth/stores/authStore'
 import { useToast } from '@/hooks/use-toast'
@@ -7,12 +7,12 @@ import type { Budget, BudgetWithSpending } from '../types'
 
 const BUDGETS_KEY = 'budgets'
 
-export function useBudgets() {
+export function useBudgets(month: Date) {
   const user = useAuthStore((s) => s.user)
   const userId = user?.id ?? ''
 
   return useQuery({
-    queryKey: [BUDGETS_KEY, userId],
+    queryKey: [BUDGETS_KEY, userId, month.getFullYear(), month.getMonth()],
     queryFn: async (): Promise<BudgetWithSpending[]> => {
       // 1. Fetch all budgets
       const { data: budgets, error: budgetsError } = await supabase
@@ -24,13 +24,15 @@ export function useBudgets() {
 
       if (!budgets || budgets.length === 0) return []
 
-      // 2. Fetch transactions for current month (expenses only: amount < 0)
-      const monthStart = format(startOfMonth(new Date()), 'yyyy-MM-dd')
+      // 2. Fetch transactions for selected month (expenses only: amount < 0)
+      const monthStart = format(startOfMonth(month), 'yyyy-MM-dd')
+      const monthEnd = format(endOfMonth(month), 'yyyy-MM-dd')
       const { data: transactions, error: txError } = await supabase
         .from('transactions')
         .select('amount, category:categories(name)')
         .eq('user_id', userId)
         .gte('transaction_date', monthStart)
+        .lte('transaction_date', monthEnd)
         .lt('amount', 0)
       if (txError) throw txError
 

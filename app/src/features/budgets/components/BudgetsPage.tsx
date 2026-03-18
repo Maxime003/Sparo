@@ -3,16 +3,17 @@ import { PiggyBank, Plus } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { formatAmount } from '@/lib/utils/currency'
-import { formatMonthYear } from '@/lib/utils/date'
 import { cn } from '@/lib/utils'
 import { useBudgets } from '../hooks/useBudgets'
 import { BudgetCard } from './BudgetCard'
 import { BudgetForm } from './BudgetForm'
 import { BudgetProgressBar } from './BudgetProgressBar'
+import { MonthNavigator } from './MonthNavigator'
 
 export function BudgetsPage() {
   const [formOpen, setFormOpen] = useState(false)
-  const { data: budgets = [], isLoading, error } = useBudgets()
+  const [month, setMonth] = useState(() => new Date())
+  const { data: budgets = [], isLoading, error } = useBudgets(month)
 
   const sorted = [...budgets].sort((a, b) => b.percentage - a.percentage)
 
@@ -37,16 +38,13 @@ export function BudgetsPage() {
     <div className="space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-semibold tracking-tight">Mes budgets</h1>
-          <p className="text-sm text-muted-foreground capitalize">
-            {formatMonthYear(new Date())}
-          </p>
-        </div>
-        <Button onClick={() => setFormOpen(true)} size="sm">
-          <Plus className="h-4 w-4 mr-1" />
-          Ajouter un budget
+        <h1 className="text-2xl font-semibold tracking-tight">Mes budgets</h1>
+        <Button variant="outline" size="icon" onClick={() => setFormOpen(true)}>
+          <Plus className="h-4 w-4" />
         </Button>
+      </div>
+      <div className="flex justify-center -mt-3">
+        <MonthNavigator value={month} onChange={setMonth} />
       </div>
 
       {isLoading ? (
